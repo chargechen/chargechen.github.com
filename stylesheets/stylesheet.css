@@ -61,15 +61,15 @@ a {
 
 @media screen and (min-width: 64em) {
   .page-header {
-    padding: 10px; } }
+    padding: 10 0px; } }
 
 @media screen and (min-width: 42em) and (max-width: 64em) {
   .page-header {
-    padding: 3rem 4rem; } }
+    padding: 1rem 0rem; } }
 
 @media screen and (max-width: 42em) {
   .page-header {
-    padding: 2rem 1rem; } }
+    padding: 1rem 0rem; } }
 
 .project-name {
   margin-top: 0;
@@ -207,40 +207,12 @@ a {
 bottom: 0;
 left: 0;
 width: 100%;
-font-size: 0px;
-text-align:left;}
-.qt_bottom_bar .thumb a {
-display: block;
-font-size: 0px;
-position: relative;
-z-index: 2;
-}
-.qt_bottom_bar img {
-width: 100%;
-margin: 0;
-height: auto;
-display: block;
-}
-a.qt_bottom_bar_close {
-position: absolute;
-left: 0px;
-top: -20px;
-font-size: 20px;
-color: #666;
-z-index: 3;
-width: 20px;
-height: 20px;
-width: 40px;
-height: 40px;
-background: #fff;
-line-height: 40px;
-font-size: 30px;
-text-align: center;
-border-radius: 90px;
-text-decoration: none;
-}
-.clearfix:after {visibility:hidden;display:block;font-size:0;content:"";clear:both;height:0;}
-.clearfix {zoom:1;}
+height: 60px;
+background-color: mediumseagreen;
+color: #ffffff;
+font-size: 18px;
+line-height: 60px;
+text-align:center;}
 
 @media screen and (min-width: 64em) {
   .main-content {
