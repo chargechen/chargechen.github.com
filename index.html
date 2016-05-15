@@ -45,10 +45,12 @@
             _shareCC.onclick = function(){
                 _shareCC.style.display = 'none';
             }
-            for(var i = 0; i < _itemInfoBtn.length; i++){
-                _itemInfoBtn[i].onclick = function(){
-//                    alert(_w + ' ddd' + _h + ' ddd' + _scale);
-                    event.preventDefault();
+
+        }
+
+       $("#download").on("click",function(e){
+        if (isWeixinBrowser()) {
+            e.preventDefault();
                     _shareCC.style.display = 'block';
                     var ua = navigator.userAgent.toLowerCase();
                     if (/(iphone|ipod)/i.test(ua)) {
@@ -70,12 +72,9 @@
                         _shareAndroid.style.position = 'absolute';
                         _shareAndroid.style.right = '0px';
                     }
-                }
-            }
-        }
-
-       $("#download").on("click",function(e){
-                    var ua = navigator.userAgent.toLowerCase();
+        }else
+        {
+                var ua = navigator.userAgent.toLowerCase();
                     if (/(iphone|ipod)/i.test(ua)) {
                         redirectDownloadPage();
 
@@ -84,6 +83,8 @@
                     }else{
                       alert("天天变色跑安卓版正在上线中，敬请期待~");
                     }
+        }
+                
             });
     function redirectDownloadPage(){
 
