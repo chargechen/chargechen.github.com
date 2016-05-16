@@ -188,9 +188,11 @@ btGame.makePublisher(a);
         }, f);
     });
 }(a);
+    a.setPlayMode(0);
 
 ~function(a) {
     a.setPlayMode(0);
+    alert(1);
 }(a);
 
 ~function(a) {
