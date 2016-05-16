@@ -195,9 +195,6 @@ $(document).ready(function() {
         a.fire("gameStart");
 }); 
 
-// ~function(a) {
-      
-// }(a);
 
 ~function(a) {
     var d = $("#start");

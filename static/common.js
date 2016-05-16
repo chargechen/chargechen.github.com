@@ -182,61 +182,6 @@ var btGame;
 var btGame;
 
 ~function(bt) {
-    var b = {
-        id: "bt-advertisement",
-        html: "广告",
-        time: 1500
-    };
-    var flash = function(c) {
-        var d = $.extend({}, b, c || {});
-        var e = $("#" + d.id);
-        var f = new bt.lockScreen(d.lockId);
-        if (e.size() <= 0) {
-            var h = $(bt.getNewDiv()).attr({
-                id: d.id
-            }).addClass(d.id);
-            var i = d.html;
-            h.html(i);
-            bt.getDomBody().appendChild(h[0]);
-            e = h;
-        }
-        this.event = d.id + "_timeup";
-        var g = this;
-        if (d.time > 0) {
-            var h = this.event;
-            this.off(h);
-            e.data("timer", setTimeout(function() {
-                e.remove(), f.hide();
-                g.fire(h);
-                d = null;
-                this.elem = this.lock = g.show = g.hide = null;
-            }, d.time <= 0 ? 1500 : d.time));
-        }
-        this.elem = e;
-        this.lock = f;
-        this.show = function(h) {
-            h && this.elem.html(h);
-            this.elem.removeClass("bt-hide");
-            this.lock.show();
-        };
-        this.hide = function() {
-            this.elem.addClass("bt-hide");
-            this.lock.hide();
-        };
-        this.remove = function() {
-            this.lock.remove();
-            this.elem.remove();
-        };
-    };
-    bt.makePublisher(flash);
-    bt.advertisement = function(c) {
-        return new flash(c);
-    };
-}(btGame || (btGame = {}));
-
-var btGame;
-
-~function(bt) {
     var b = null;
     var c = null;
     var loading = function(d, e) {
