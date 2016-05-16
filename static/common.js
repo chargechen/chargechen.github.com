@@ -411,13 +411,7 @@ var btGame;
 
 var btGame;
 
-~function(bt) {
-    var b = "bt-play-logo-adv";
-    function ad(c) {}
-    bt.playLogoAdv = ad;
-}(btGame || (bgGame = {}));
 
-var btGame;
 
 ~function(bt) {
     var b = "bt-play-share-tip";
