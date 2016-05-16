@@ -189,12 +189,15 @@ btGame.makePublisher(a);
     });
 }(a);
 
-
-~function(a) {
-    a.setPlayMode(0);
-a.fire("pageChange", 1);
+$(document).ready(function() { 
+        a.setPlayMode(0);
+        a.fire("pageChange", 1);
         a.fire("gameStart");
-}(a);
+}); 
+
+// ~function(a) {
+      
+// }(a);
 
 ~function(a) {
     var d = $("#start");
