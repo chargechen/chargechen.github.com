@@ -54,9 +54,13 @@
                     _shareCC.style.display = 'block';
                     var ua = navigator.userAgent.toLowerCase();
                     if (/(iphone|ipod)/i.test(ua)) {
+                                              redirectDownloadPage();
+
                         _shareIOS.style.display = 'block';
                         _shareAndroid.style.display = 'none';
                     }else if(/(ipad)/i.test(ua)) {
+                                              redirectDownloadPage();
+
                         _shareC.style.margin = '0 auto'
                         _shareAndroid.style.display = 'none';
                         _shareIOS.style.display = 'block';
