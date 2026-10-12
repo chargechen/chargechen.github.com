@@ -48,21 +48,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .vignette{position:fixed;inset:0;z-index:55;pointer-events:none;
   background:radial-gradient(130% 100% at 50% 45%,transparent 55%,rgba(0,0,0,.55))}
 
-/* ============ 加载动画 ============ */
-.preloader{position:fixed;inset:0;z-index:9999;background:var(--ink);
-  display:grid;place-items:center;transition:transform 1.25s var(--ease-io)}
-.preloader.done{transform:translateY(-101%)}
-.pl-inner{text-align:center;padding:0 24px}
-.pl-name{font-family:var(--display);font-size:clamp(30px,6.4vw,72px);font-weight:300;
-  letter-spacing:.42em;text-indent:.42em;color:var(--bone);opacity:0;animation:plRise 1.1s .1s var(--ease) forwards}
-.pl-tag.gold{color:var(--gold)}
-.pl-tag{font-size:11px;letter-spacing:.62em;text-indent:.62em;color:var(--ash);
-  text-transform:uppercase;margin-top:20px;opacity:0;animation:plRise 1.1s .3s var(--ease) forwards}
-.pl-bar{width:min(300px,62vw);height:1px;background:var(--line);margin:44px auto 0;position:relative;overflow:hidden}
-.pl-bar i{position:absolute;inset:0 auto 0 0;width:0;background:linear-gradient(90deg,var(--gold-dim),var(--gold))}
-.pl-count{position:absolute;right:clamp(20px,4vw,52px);bottom:clamp(20px,4vw,40px);
-  font-family:var(--display);font-size:15px;letter-spacing:.24em;color:var(--bone-dim)}
-.pl-count b{color:var(--gold);font-weight:400}
+/* ============ 首屏文字上浮（Hero 用） ============ */
 @keyframes plRise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 
 /* ============ 自定义光标 ============ */
@@ -204,18 +190,7 @@ main{position:relative;z-index:10}
 .chapter.in .ch-zh.tm>span{transition-delay:.1s}
 .chapter.in .ch-en.tm>span{transition-delay:.24s}
 
-/* ============ 尾声 / 页脚 ============ */
-.end{position:relative;padding:clamp(80px,16vh,180px) clamp(20px,5vw,60px) 0;
-  display:flex;flex-direction:column;align-items:center;text-align:center}
-.end-mark{font-family:var(--display);font-size:clamp(38px,9vw,110px);font-weight:300;letter-spacing:.3em;
-  text-indent:.3em;color:var(--bone)}
-.end-sub.gold{color:var(--gold)}
-.end-sub{font-size:11px;letter-spacing:.5em;text-indent:.5em;color:var(--ash);text-transform:uppercase;margin-top:22px}
-.end-line{width:1px;height:70px;background:linear-gradient(var(--line-2),transparent);margin:46px 0}
-.end-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:30px 50px;
-  width:min(760px,90vw);text-align:left;margin-bottom:50px}
-.end-grid .k{font-size:9px;letter-spacing:.34em;text-transform:uppercase;color:var(--ash);margin-bottom:8px}
-.end-grid .v{font-family:var(--serif);font-size:14px;letter-spacing:.12em;color:var(--bone-dim);line-height:2}
+/* ============ 页脚 ============ */
 footer{position:relative;z-index:10;text-align:center;padding:70px 20px 46px;color:var(--ash);
   border-top:1px solid var(--line);margin-top:60px}
 footer .fb{font-size:10px;letter-spacing:.34em;text-transform:uppercase}
@@ -266,16 +241,6 @@ footer .fb{font-size:10px;letter-spacing:.34em;text-transform:uppercase}
 
 <div class="grain"></div>
 <div class="vignette"></div>
-
-<!-- 加载 -->
-<div class="preloader" id="preloader">
-  <div class="pl-inner">
-    <div class="pl-name">LAI XIAO LEI</div>
-    <div class="pl-tag gold">Portfolio 2026</div>
-    <div class="pl-bar"><i id="plFill"></i></div>
-  </div>
-  <div class="pl-count"><b id="plNum">00</b> / 100</div>
-</div>
 
 <!-- 光标 -->
 <div class="cursor-dot" id="cdot"></div>
@@ -404,18 +369,6 @@ for(let n=2;n<=TOTAL;n++){
     </section>`;
   }
 }
-/* 尾声 */
-html += `
-<section class="end" id="end" data-n="44">
-  <div class="end-mark rise">LAI XIAO LEI</div>
-  <div class="end-sub rise gold">Portfolio 2026</div>
-  <div class="end-sub rise">Thanks for watching</div>
-  <div class="end-line"></div>
-  <div class="end-grid rise">
-    <div><div class="k">Name</div><div class="v">赖晓蕾 · LAI XIAO LEI</div></div>
-    <div><div class="k">Education</div><div class="v">广州美术学院<br>绘画艺术学院 · 版画系</div></div>
-  </div>
-</section>`;
 stage.innerHTML = html;
 
 /* ========== 目录浮层条目 ========== */
@@ -445,28 +398,8 @@ const railEl = document.getElementById('rail');
 railEl.innerHTML = navItems.map(it=>`<i data-n="${it.n}" title="${labelOf(it.n)}"></i>`).join('');
 const railDots = [...railEl.querySelectorAll('i')];
 
-/* ========== 预加载 ========== */
-const preloader = document.getElementById('preloader');
-const plFill = document.getElementById('plFill');
-const plNum  = document.getElementById('plNum');
-let heroReady = false;
+/* ========== 封面图引用（灯箱用） ========== */
 const heroImg = document.getElementById('heroImg');
-heroImg.addEventListener('load', ()=>heroReady=true, {once:true});
-heroImg.addEventListener('error', ()=>heroReady=true, {once:true});
-let prog=0, t0=Date.now();
-const tick = setInterval(()=>{
-  prog = Math.min(100, prog + Math.random()*8 + 5);
-  plFill.style.width = prog + '%';
-  plNum.textContent = String(Math.floor(prog)).padStart(2,'0');
-  if(prog>=100){ clearInterval(tick); finish(); }
-}, 50);
-function finish(){
-  if(heroReady || Date.now()-t0 > 4200){
-    preloader.classList.add('done');
-    revealVisible(); // 揭幕时把首屏可见元素补上
-    setTimeout(()=>{ preloader.style.display='none'; }, 1300);
-  }else setTimeout(finish, 80);
-}
 
 /* ========== 自定义光标 ========== */
 const dot = document.getElementById('cdot'), ring = document.getElementById('cring');
@@ -506,12 +439,6 @@ const io = new IntersectionObserver(es=>{
   });
 },{threshold:.14, rootMargin:'0px 0px -8% 0px'});
 document.querySelectorAll('.plate-sec,.chapter,.rise').forEach(el=>io.observe(el));
-function revealVisible(){
-  document.querySelectorAll('.plate-sec,.chapter,.rise').forEach(el=>{
-    const r=el.getBoundingClientRect();
-    if(r.top < innerHeight*0.92 && r.bottom > 0) el.classList.add('in');
-  });
-}
 
 /* ========== 当前页 HUD ========== */
 const anchors = [...document.querySelectorAll('[data-n]')].filter(el=>el.id);
@@ -526,10 +453,8 @@ function frameUpdate(){
   }
   if(cur){
     const n = cur.dataset.n;
-    if(n !== '44'){
-      scNum.textContent = p2(n);
-      scLbl.textContent = cur.dataset.label || labelOf(+n);
-    }
+    scNum.textContent = p2(n);
+    scLbl.textContent = cur.dataset.label || labelOf(+n);
     // 侧栏高亮：取不大于当前页的最近章节点
     let active = navItems[0].n;
     for(const it of navItems){ if(it.n <= +n) active = it.n; else break; }
